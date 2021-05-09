@@ -30,11 +30,11 @@ class AsteroidAdapter : ListAdapter<Asteroid, AsteroidAdapter.ViewHolder,>(Aster
 
     class DiffCallback : DiffUtil.ItemCallback<Asteroid>() {
         override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
-            TODO("Not yet implemented")
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
-            TODO("Not yet implemented")
+            return oldItem == newItem
         }
     }
 
