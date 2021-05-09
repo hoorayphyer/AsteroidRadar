@@ -14,12 +14,8 @@ class AsteroidAdapter : ListAdapter<Asteroid, AsteroidAdapter.ViewHolder,>(Aster
         fun bind(item: Asteroid) {
             binding.asteroidSerialNumber.text = item.id.toString()
             binding.asteroidCloseApproachDate.text = item.closeApproachDate
-            binding.imageView.setImageResource(
-                    when(item.isPotentiallyHazardous) {
-                        true -> R.drawable.asteroid_hazardous
-                        else -> R.drawable.asteroid_safe
-                    }
-            )
+            binding.asteroid = item
+            binding.executePendingBindings()
         }
 
         companion object {
