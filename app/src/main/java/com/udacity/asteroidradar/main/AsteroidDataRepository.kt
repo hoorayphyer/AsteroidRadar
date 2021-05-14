@@ -1,8 +1,6 @@
 package com.udacity.asteroidradar
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.udacity.asteroidradar.database.AsteroidDatabaseDao
 import com.udacity.asteroidradar.network.AsteroidsApi
 import kotlinx.coroutines.Dispatchers
