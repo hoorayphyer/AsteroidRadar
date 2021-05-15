@@ -7,6 +7,8 @@ import com.udacity.asteroidradar.network.NasaJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun NasaJson.IndividualAsteroidInfo.toAsteroid(): Asteroid {
     return with(this) {
@@ -40,10 +42,15 @@ class AsteroidRepository(private val cache: AsteroidDatabaseDao) {
         asteroids = cache.getAllAsteroids()
     }
 
-    suspend fun refreshAsteroids(startDate: String, endDate: String) {
+    suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
+            val dateFormat = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
+            val cal = Calendar.getInstance()
+            val startDate  = dateFormat.format(cal.time)
+            // the Nasa request is limited to 7 days
+            cal.add(Calendar.DAY_OF_YEAR, 7)
+            val endDate  = dateFormat.format(cal.time)
             try {
-                // TODO limit the date range to 7 days
                 val asteroidsFresh =
                     service.queryAsteroids(startDate, endDate, API_KEY).toListOfAsteroids()
                 cache.updateDatabase(asteroidsFresh)
