@@ -10,11 +10,11 @@ import java.lang.Exception
 
 fun NasaJson.IndividualAsteroidInfo.toAsteroid(): Asteroid {
     return with(this) {
-        val cdo = close_approach_date[0]!!
+        val cad = close_approach_data[0]!!
         Asteroid(
-            id, name, cdo.date, absolute_magnitude_h, estimated_diameter["kilometers"]!!.max,
-            cdo.relative_velocity["kilometers_per_second"]!!, cdo.miss_distance["astronomical"]!!,
-            is_potentially_hazardous_asteroid != "false"
+            id, name, cad.date, absolute_magnitude_h, estimated_diameter["kilometers"]!!.max,
+            cad.relative_velocity["kilometers_per_second"]!!, cad.miss_distance["astronomical"]!!,
+            is_potentially_hazardous_asteroid
         )
     }
 }
@@ -22,8 +22,7 @@ fun NasaJson.IndividualAsteroidInfo.toAsteroid(): Asteroid {
 
 fun NasaJson.toListOfAsteroids(): List<Asteroid> {
     return this.near_earth_objects
-        .values.toList()
-        .map { it.values.toList() }
+        .values
         .flatten()
         .map { it.toAsteroid() }
 }

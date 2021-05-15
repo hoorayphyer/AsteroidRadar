@@ -4,29 +4,27 @@ import com.squareup.moshi.Json
 
 
 data class NasaJson(
-    val links : Links,
-    val near_earth_objects : Map<String, Map<Int,IndividualAsteroidInfo>>
+    val links : Map<String, String>,
+    val element_count : Int,
+    val near_earth_objects : Map<String, List<IndividualAsteroidInfo>>
 ) {
-    data class Links (
-        val next : String,
-        val prev : String,
-        val self : String,
-        val element_count : Int
-    )
-
     data class IndividualAsteroidInfo (
-        val links : Map<String, String>,val id : Long, val neo_reference_id : Long, val name : String,
-        val nasa_jpl_url : String, val absolute_magnitude_h : Double,
+        val links : Map<String, String>,
+        val id : Long,
+        val neo_reference_id : Long,
+        val name : String,
+        val nasa_jpl_url : String,
+        val absolute_magnitude_h : Double,
         val estimated_diameter : Map<String, EstimatedDiameter>,
-        val is_potentially_hazardous_asteroid : String,
-        val close_approach_date : Map<Int, CloseApproachDate>,
-        val is_sentry_object : String
+        val is_potentially_hazardous_asteroid : Boolean,
+        val close_approach_data : List<CloseApproachDatum>,
+        val is_sentry_object : Boolean
     ) {
         data class EstimatedDiameter (
             @Json(name="estimated_diameter_min")val min : Double,
             @Json(name="estimated_diameter_max")val max : Double)
 
-        data class CloseApproachDate (
+        data class CloseApproachDatum (
             @Json(name="close_approach_date") val date : String,
             @Json(name="close_approach_date_full") val date_full : String,
             @Json(name="epoch_date_close_approach") val epoch : Long,

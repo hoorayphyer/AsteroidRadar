@@ -6,6 +6,7 @@ import androidx.work.WorkerParameters
 import com.udacity.asteroidradar.AsteroidRepository
 import com.udacity.asteroidradar.database.AsteroidDatabase
 import retrofit2.HttpException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RefreshDataWorker(appContext: Context, params: WorkerParameters) : CoroutineWorker(
@@ -20,10 +21,11 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) : Corouti
         val dao = AsteroidDatabase.getInstance(applicationContext).dao
         val repo = AsteroidRepository(dao)
 
+        val dateFormat = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault())
         val cal = Calendar.getInstance()
-        val startDate  = cal.time.toString()
+        val startDate  = dateFormat.format(cal.time)
         cal.add(Calendar.DAY_OF_YEAR, 7)
-        val endDate  = cal.time.toString()
+        val endDate  = dateFormat.format(cal.time)
 
         return try {
             repo.refreshAsteroids( startDate, endDate)
