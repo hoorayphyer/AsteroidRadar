@@ -3,9 +3,15 @@ package com.udacity.asteroidradar
 import androidx.lifecycle.LiveData
 import com.udacity.asteroidradar.database.AsteroidDatabaseDao
 import com.udacity.asteroidradar.network.AsteroidsApi
+import com.udacity.asteroidradar.network.NasaJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+
+fun NasaJson.toListOfAsteroids() : List<Asteroid> {
+
+
+}
 
 class AsteroidRepository(private val cache : AsteroidDatabaseDao) {
     private val service by lazy {
@@ -24,7 +30,7 @@ class AsteroidRepository(private val cache : AsteroidDatabaseDao) {
         withContext(Dispatchers.IO) {
             try {
                 // TODO limit the date range to 7 days
-                val asteroidsFresh = service.queryAsteroids( startDate, endDate, API_KEY)
+                val asteroidsFresh = service.queryAsteroids( startDate, endDate, API_KEY).toListOfAsteroids()
                 cache.updateDatabase(asteroidsFresh)
             } catch ( e : Exception ) {
             }
