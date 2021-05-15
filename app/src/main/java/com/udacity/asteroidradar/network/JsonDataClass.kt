@@ -15,7 +15,7 @@ data class NasaJson(
     )
 
     data class IndividualAsteroidInfo (
-        val links : Map<String, String>,val id : Int, val neo_reference_id : Int, val name : String,
+        val links : Map<String, String>,val id : Long, val neo_reference_id : Long, val name : String,
         val nasa_jpl_url : String, val absolute_magnitude_h : Double,
         val estimated_diameter : Map<String, EstimatedDiameter>,
         val is_potentially_hazardous_asteroid : String,
