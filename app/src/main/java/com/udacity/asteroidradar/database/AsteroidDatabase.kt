@@ -7,7 +7,7 @@ import com.udacity.asteroidradar.Asteroid
 
 @Dao
 interface AsteroidDatabaseDao {
-    @Query("SELECT * FROM asteroids_data_table ORDER BY id DESC") // TODO double check order
+    @Query("SELECT * FROM asteroids_data_table ORDER BY close_approach_date") // TODO double check order
     fun getAllAsteroids() : LiveData<List<Asteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
