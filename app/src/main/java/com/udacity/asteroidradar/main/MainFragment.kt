@@ -39,7 +39,11 @@ class MainFragment : Fragment() {
             }
         })
 
-        viewModel.pictureOfDay.observe(viewLifecycleOwner, {})
+        viewModel.pictureOfDay.observe(viewLifecycleOwner, {
+            it?.let{
+                binding.titleOfImageOfTheDay.text = it.title
+            }
+        })
 
         return binding.root
     }
