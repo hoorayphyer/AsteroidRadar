@@ -20,6 +20,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) : Corouti
         val repo = AsteroidRepository(dao)
         return try {
             repo.refreshAsteroids()
+            repo.refreshPictureOfDay()
             Result.success()
         } catch (e: HttpException) {
             Result.retry()

@@ -13,7 +13,7 @@ class AsteroidAdapter : ListAdapter<Asteroid, AsteroidAdapter.ViewHolder,>(DiffC
     class ViewHolder private constructor( val binding : ListItemAsteroidBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Asteroid) {
-            binding.asteroidSerialNumber.text = item.id.toString()
+            binding.asteroidCodename.text = item.codename
             binding.asteroidCloseApproachDate.text = item.closeApproachDate
             binding.asteroid = item
             binding.executePendingBindings()

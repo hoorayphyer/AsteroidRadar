@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
 
         // observation here is such that when viewModel.asteroids gets updated, the recyclerView responds with updated object
         // In this app, the viewModel.asteroids are automatically downloaded daily.
-        viewModel.asteroids.observe(viewLifecycleOwner, {
+        viewModel.repo.asteroids.observe(viewLifecycleOwner, {
             it?.let{
                 asteroids_view.submitList(it)
             }

@@ -15,6 +15,4 @@ class MainViewModelFactory(private val repo : AsteroidRepository) : ViewModelPro
     }
 }
 
-class MainViewModel(private val repo : AsteroidRepository) : ViewModel() {
-    val asteroids : LiveData<List<Asteroid>> = repo.asteroids
-}
+class MainViewModel(val repo : AsteroidRepository) : ViewModel()

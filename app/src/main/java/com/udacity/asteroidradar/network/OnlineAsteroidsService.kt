@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private val BASE_URL = "https://api.nasa.gov/neo/rest/v1/"
+private val BASE_URL = "https://api.nasa.gov/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -19,10 +19,13 @@ private val retrofit_service = Retrofit.Builder()
         .build()
 
 interface NasaService {
-    @GET("feed")
+    @GET("neo/rest/v1/feed")
     suspend fun queryAsteroids(@Query("start_date") start_date: String,
                                @Query("end_date") end_date: String,
                                @Query("api_key") api_key: String): NasaJson
+
+    @GET("planetary/apod")
+    suspend fun queryPictureOfDay(@Query("api_key") api_key : String ) : PictureOfDay
 }
 
 
