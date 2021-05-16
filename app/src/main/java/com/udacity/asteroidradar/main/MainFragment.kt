@@ -39,6 +39,9 @@ class MainFragment : Fragment() {
             }
         })
 
+        viewModel.pictureOfDay.observe(viewLifecycleOwner, {})
+        viewModel.getPictureOfDay()
+
         return binding.root
     }
 

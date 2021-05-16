@@ -1,11 +1,9 @@
 package com.udacity.asteroidradar
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.udacity.asteroidradar.database.AsteroidDatabaseDao
 import com.udacity.asteroidradar.network.AsteroidsApi
 import com.udacity.asteroidradar.network.NasaJson
-import com.udacity.asteroidradar.network.PictureOfDay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
@@ -36,13 +34,8 @@ class AsteroidRepository(private val cache: AsteroidDatabaseDao) {
         AsteroidsApi.service
     }
 
-    private val API_KEY = "mKFSpwB2zKtzTUeegZoujLWePhUPURc4wXU6lN50"
-
     private var _asteroids = cache.getAllAsteroids()
-    private var _pictureOfDay = MutableLiveData<PictureOfDay>()
-
     val asteroids : LiveData<List<Asteroid>> = _asteroids
-    val pictureOfDay: LiveData<PictureOfDay> = _pictureOfDay
 
     suspend fun refreshAsteroids() {
         withContext(Dispatchers.IO) {
@@ -54,18 +47,8 @@ class AsteroidRepository(private val cache: AsteroidDatabaseDao) {
             val endDate = dateFormat.format(cal.time)
             try {
                 val asteroidsFresh =
-                    service.queryAsteroids(startDate, endDate, API_KEY).toListOfAsteroids()
+                    service.queryAsteroids(startDate, endDate).toListOfAsteroids()
                 cache.updateDatabase(asteroidsFresh)
-            } catch (e: Exception) {
-            }
-        }
-    }
-
-    suspend fun refreshPictureOfDay() {
-        withContext(Dispatchers.IO) {
-            try {
-                val json = service.queryPictureOfDay(API_KEY)
-                _pictureOfDay.value = json
             } catch (e: Exception) {
             }
         }

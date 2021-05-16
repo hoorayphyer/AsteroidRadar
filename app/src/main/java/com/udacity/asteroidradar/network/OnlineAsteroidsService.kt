@@ -18,14 +18,16 @@ private val retrofit_service = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .build()
 
+private const val MY_API_KEY = "mKFSpwB2zKtzTUeegZoujLWePhUPURc4wXU6lN50"
+
 interface NasaService {
     @GET("neo/rest/v1/feed")
     suspend fun queryAsteroids(@Query("start_date") start_date: String,
                                @Query("end_date") end_date: String,
-                               @Query("api_key") api_key: String): NasaJson
+                               @Query("api_key") api_key: String = MY_API_KEY): NasaJson
 
     @GET("planetary/apod")
-    suspend fun queryPictureOfDay(@Query("api_key") api_key : String ) : PictureOfDay
+    suspend fun queryPictureOfDay(@Query("api_key") api_key : String = MY_API_KEY ) : PictureOfDay
 }
 
 
