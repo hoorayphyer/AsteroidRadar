@@ -29,6 +29,7 @@ class MainFragment : Fragment() {
         setHasOptionsMenu(true)
 
         val asteroids_view = AsteroidAdapter()
+        binding.asteroidRecycler.adapter = asteroids_view
 
         // observation here is such that when viewModel.asteroids gets updated, the recyclerView responds with updated object
         // In this app, the viewModel.asteroids are automatically downloaded daily.
