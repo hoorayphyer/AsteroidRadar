@@ -46,6 +46,7 @@ class AsteroidRepository(private val cache: AsteroidDatabaseDao) {
             cal.add(Calendar.DAY_OF_YEAR, 7)
             val endDate = dateFormat.format(cal.time)
             try {
+                cache.deletePriorTo(startDate)
                 val asteroidsFresh =
                     service.queryAsteroids(startDate, endDate).toListOfAsteroids()
                 cache.updateDatabase(asteroidsFresh)

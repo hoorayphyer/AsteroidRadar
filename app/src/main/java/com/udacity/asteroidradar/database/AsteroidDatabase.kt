@@ -12,6 +12,9 @@ interface AsteroidDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateDatabase( asteroids : List<Asteroid> )
+
+    @Query("DELETE FROM asteroids_data_table WHERE close_approach_date < :date")
+    fun deletePriorTo( date : String )
 }
 
 @Database(entities = [Asteroid::class], version = 1, exportSchema = false)
