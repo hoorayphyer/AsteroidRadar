@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="detailTitle">
+        <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="detailValue">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>
