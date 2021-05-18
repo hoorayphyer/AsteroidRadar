@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
 
         viewModel.pictureOfDay.observe(viewLifecycleOwner, {
             it?.let{
-                binding.titleOfImageOfTheDay.text = it.title
+                binding.activityMainImageOfTheDay.contentDescription = String.format(requireContext().getString(R.string.nasa_picture_of_day_content_description_format), it.title)
             }
         })
 

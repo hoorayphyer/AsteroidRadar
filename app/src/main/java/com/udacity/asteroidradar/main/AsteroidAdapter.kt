@@ -8,21 +8,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.databinding.ListItemAsteroidBinding
 
-class AsteroidAdapter(private val clickListener: AsteroidItemClickListener) : ListAdapter<Asteroid, AsteroidAdapter.ViewHolder,>(DiffCallback()) {
+class AsteroidAdapter(private val clickListener: AsteroidItemClickListener) :
+    ListAdapter<Asteroid, AsteroidAdapter.ViewHolder>(DiffCallback()) {
 
-    class ViewHolder private constructor( val binding : ListItemAsteroidBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ListItemAsteroidBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Asteroid, clickListener: AsteroidItemClickListener) {
-            binding.asteroidCodename.text = item.codename
-            binding.asteroidCloseApproachDate.text = item.closeApproachDate
+            binding.asteroidCodename.apply {
+                text = item.codename
+                contentDescription = item.codename
+            }
+            binding.asteroidCloseApproachDate.apply {
+                text = item.closeApproachDate
+                contentDescription = item.closeApproachDate
+            }
             binding.asteroid = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
-                val inflater =LayoutInflater.from(parent.context)
+            fun from(parent: ViewGroup): ViewHolder {
+                val inflater = LayoutInflater.from(parent.context)
                 val binding = ListItemAsteroidBinding.inflate(inflater, parent, false)
                 return ViewHolder(binding)
             }
@@ -50,6 +58,6 @@ class AsteroidAdapter(private val clickListener: AsteroidItemClickListener) : Li
     }
 }
 
-class AsteroidItemClickListener(val callback : (asteroid : Asteroid) -> Unit) {
+class AsteroidItemClickListener(val callback: (asteroid: Asteroid) -> Unit) {
     fun onClick(asteroid: Asteroid) = callback(asteroid)
 }
